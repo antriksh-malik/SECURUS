@@ -1,0 +1,16 @@
+<component name="libraryTable">
+  <library name="libraries">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/.idea/libraries" />
+      <root url="jar://$USER_HOME$/Downloads/imageio-pnm-3.4.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/.idea/libraries/ImageJ/macros/Examples/Java" />
+      <root url="file://$PROJECT_DIR$/.idea/libraries/ImageJ/plugins" />
+      <root url="file://$PROJECT_DIR$/.idea/libraries" />
+    </SOURCES>
+    <jarDirectory url="file://$PROJECT_DIR$/.idea/libraries" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/.idea/libraries" recursive="false" type="SOURCES" />
+  </library>
+</component>

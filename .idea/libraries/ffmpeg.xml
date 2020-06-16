@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="ffmpeg">
+    <CLASSES />
+    <JAVADOC />
+    <NATIVE>
+      <root url="file://$PROJECT_DIR$/../Securus_x/ffmpeg" />
+    </NATIVE>
+    <SOURCES />
+  </library>
+</component>

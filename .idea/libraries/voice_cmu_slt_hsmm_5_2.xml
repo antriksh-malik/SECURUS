@@ -1,0 +1,16 @@
+<component name="libraryTable">
+  <library name="voice-cmu-slt-hsmm-5.2">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/.idea/libraries/voice-cmu-slt-hsmm-5.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/.idea/libraries/marytts-lang-en-5.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/.idea/libraries/marytts-builder-5.2-jar-with-dependencies.jar!/" />
+      <root url="file://$PROJECT_DIR$" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/.idea/libraries/ImageJ/macros/Examples/Java" />
+      <root url="file://$PROJECT_DIR$/.idea/libraries/ImageJ/plugins" />
+      <root url="file://$PROJECT_DIR$/src" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,24 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" name="S3CURUS">
+    <output-path>$PROJECT_DIR$/out/artifacts/S3CURUS</output-path>
+    <properties id="javafx-properties">
+      <options>
+        <option name="appClass" value="C:\Users\Apurva Bhardwaj\Desktop\S3CURUS\src\sample.Main" />
+        <option name="convertCss2Bin" value="true" />
+        <option name="description" value="" />
+        <option name="htmlPlaceholderId" value="" />
+        <option name="msgOutputLevel" value="Quiet" />
+        <option name="nativeBundle" value="exe" />
+        <option name="title" value="S3CURUS" />
+        <option name="vendor" value="HH" />
+        <option name="version" value="1.0" />
+      </options>
+    </properties>
+    <root id="root">
+      <element id="archive" name="S3CURUS.jar">
+        <element id="module-output" name="S3CURUS" />
+      </element>
+      <element id="library" level="project" name="lib" />
+    </root>
+  </artifact>
+</component>

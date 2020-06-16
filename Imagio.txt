@@ -1,0 +1,83 @@
+import org.opencv.core.Core;
+import org.opencv.core.Mat;
+import org.opencv.imgcodecs.Imgcodecs;
+import org.opencv.imgproc.Imgproc;
+
+import java.awt.image.BufferedImage;
+
+public class WritingImages {
+
+
+    public static void main(String args[]) {
+
+        {
+            //Loading the OpenCV core library
+            System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+
+            String input = "c.png";
+
+            // To Read the image
+            Mat source = Imgcodecs.imread(input);
+
+            // Creating the empty destination matrix
+            Mat destination = new Mat();
+
+            // Converting the image to gray scale and
+            // saving it in the dst matrix
+            Imgproc.cvtColor(source, destination, Imgproc.COLOR_RGB2GRAY);
+
+            // Writing the image
+            Imgcodecs.imwrite("cab.png", destination);
+            System.out.println("The image is successfully to Grayscale");
+
+            // Instantiating the imagecodecs class
+            // Reading the Image from the file and storing it in to a Matrix object
+            //String file = "a.jpg";
+        }
+
+
+
+        {
+            System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+
+            Imgcodecs imageCodecs = new Imgcodecs();
+            Mat matrix = imageCodecs.imread("cab.png");
+            System.out.println("Image Loaded ..........");
+            String file2 = "d.pgm";
+            // Writing the image
+            imageCodecs.imwrite(file2, matrix);
+            System.out.println("Image Saved ............");
+
+        }
+    }
+}
+
+/*
+class convert{
+
+    void convertToGrayscale(final BufferedImage image){
+        for(int i=0; i<image.getWidth(); i++){
+            for(int j=0; j<image.getHeight(); j++){
+                int color = image.getRGB(i,j);
+
+                int alpha = (color >> 24) & 255;
+                int red = (color >> 16) & 255;
+                int green = (color >> 8) & 255;
+                int blue = (color) & 255;
+
+                final int lum = (int)(0.2126 * red + 0.7152 * green + 0.0722 * blue);
+
+                alpha = (alpha << 24);
+                red = (lum << 16);
+                green = (lum << 8);
+                blue = lum;
+
+                color = alpha + red + green + blue;
+
+                image.setRGB(i,j,color);
+            }
+        }
+    }
+}
+
+ */

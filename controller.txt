@@ -1,0 +1,242 @@
+package sample;
+
+import com.github.sarxos.webcam.Webcam;
+import com.github.sarxos.webcam.WebcamPanel;
+import com.github.sarxos.webcam.WebcamResolution;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import org.apache.commons.vfs2.FileSystemException;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import java.sql.*;
+import java.util.Optional;
+
+public class Controller extends AnchorPane {
+    public AnchorPane rootPane;
+    @FXML
+    private TextField user_id;
+    @FXML
+    private PasswordField pass_word;
+
+    public Controller() {
+    }
+    @FXML
+    public void next_screen(ActionEvent actionEvent) throws Exception {
+        String user = user_id.getText();
+        String pass = pass_word.getText();
+        SecurePasswordStorage passManager = new SecurePasswordStorage();
+/*
+        String userName = "admin";
+        String password = "password";
+        passManager.signUp(userName, password);
+        passManager.signUp("apurva", "abc");
+        passManager.signUp("MeanMachiNe", "iamtejas");
+        passManager.signUp("Ojha", "Csgoislove");
+        passManager.signUp("BeepBeep", "BoopBoop");
+        passManager.signUp("Spaceboy", "Chotu69");
+
+
+ */
+        String sql = "SELECT user_id, pass " +
+                     "FROM info";
+
+        try (Connection conn =  DriverManager
+                .getConnection("jdbc:mysql://localhost:3306/S3CURUS","root","pass123");
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)) {
+
+            // loop through the result set
+            while (rs.next()) {
+                String User = rs.getString("user_id");
+                String Pass = rs.getString("pass");
+                passManager.signUp(User,Pass);
+
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+
+        boolean status = passManager.authenticateUser(user, pass);
+        if (user.isEmpty() || pass.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setContentText("Fill all the Boxes Correctly !!!");
+            alert.showAndWait();
+        } else {
+            if (status) {
+                ((Node)actionEvent.getSource()).getScene().getWindow().hide();
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                String titleTxt = "";
+                alert.setTitle(titleTxt);
+                alert.setHeaderText("Access Granted");
+                String s = " Verify your Face";
+                alert.setContentText(s);
+                Optional<ButtonType> result = alert.showAndWait();
+                ButtonType buttonType = result.orElse(ButtonType.CANCEL);
+                if (buttonType == ButtonType.OK) {
+
+                    Webcam webcam = Webcam.getDefault();
+                    webcam.setViewSize(WebcamResolution.VGA.getSize());
+                    WebcamPanel webcamPanel = new WebcamPanel(webcam);
+                    webcamPanel.setImageSizeDisplayed(true);
+                    webcamPanel.setMirrored(true);
+                    alert.close();
+
+                    JFrame frame = new JFrame("S3CURUS");
+                    JPanel panel = new JPanel();
+                    JButton openBt = new JButton("Confirm Your Face");
+                    openBt.addActionListener(actionEvent1 -> {
+                        webcam.close();
+                        FaceDetector faceDetector = new FaceDetector();
+                        try {
+                            faceDetector.detectFace();
+                        } catch (InterruptedException | IOException e) {
+                            e.printStackTrace();
+                        }
+/*
+                       Webcam webcam1 = Webcam.getDefault();
+                        webcam1.open();
+                        try {
+                            ImageIO.write(webcam1.getImage(), "PNG", new File("Securus.png"));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+
+                        }
+                        webcam1.close();
+                        
+ */
+                        
+                            Parent root2 = null;
+                            try {
+                                root2 = FXMLLoader.load(getClass().getResource("/sample/sample3.fxml"));
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                            window.setTitle("Securus");
+                            window.setScene(new Scene(root2, 600, 500));
+                            window.show();
+ 
+
+                    });
+                    panel.add(openBt);
+                    frame.add(webcamPanel, BorderLayout.CENTER);
+                    frame.add(panel, BorderLayout.PAGE_END);
+                    frame.setLocation(100, 100);
+                    frame.pack();
+                    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    frame.setVisible(true);
+
+
+                }
+                else {
+                    alert.close();
+                }
+
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                String titleTxt = "";
+                alert.setTitle(titleTxt);
+                alert.setHeaderText("USER NOT FOUND");
+                String s = " Try Again";
+                alert.setContentText(s);
+                alert.show();
+            }
+
+/*
+                Parent root2 = null;
+                try {
+                    root2 = FXMLLoader.load(getClass().getResource("/sample/sample3.fxml"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+
+                }
+
+                Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                window.setTitle("Securus");
+                window.setScene(new Scene(root2, 600, 500));
+                window.show();
+
+
+ */
+            }
+
+
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+*
+*
+*
+*
+*
+*
+
+
+
+
+SwingUtilities.invokeLater(()->{
+                            JFrame frame1 = new JFrame("Scene 3");
+                            frame1.setLayout(null);
+                            frame1.setBounds(10,10,600,500);
+                            JFXPanel panel1 = new JFXPanel();
+                            frame1.add(panel1);
+                            frame1.setVisible(true);
+                            Platform.runLater(()->{
+                                Parent root2 = null;
+                                try {
+                                    root2 = FXMLLoader.load(getClass().getResource("/sample/sample3.fxml"));
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+
+                                }
+
+                                //Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                                //window.setTitle("Securus");
+                                panel1.setScene(new Scene(root2, 600, 500));
+                                panel1.show();
+                            });
+
+                        });
+
+
+
+
+
+/*
+        String userName = "admin";
+        String password = "password";
+        passManager.signUp(userName, password);
+        passManager.signUp("apurva", "abc");
+        passManager.signUp("MeanMachiNe", "iamtejas");
+        passManager.signUp("Ojha", "Csgoislove");
+        passManager.signUp("BeepBeep", "BoopBoop");
+        passManager.signUp("Spaceboy", "Chotu69");
+
+
+ */
